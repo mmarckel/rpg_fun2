@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using Engine;
 
 namespace SuperAdventure
@@ -14,9 +15,16 @@ namespace SuperAdventure
     public partial class SuperAdventure : Form
     {
         private Player _player;
+
         public SuperAdventure()
         {
             InitializeComponent();
+
+            Location location = new Location(1, "Home", "This is your House");
+            //location.ID = 1;
+            //location.Name = "Home";
+            //location.Description = "This is your house.";
+
             _player = new Player();
             _player.CurrentHitPoints = 10;
             _player.MaximumHitPoints = 10;
