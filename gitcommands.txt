@@ -1,0 +1,9 @@
+GIT and Linux Commands:
+-----------------------
+git status:     ...	...	show what is staged etc.
+git commit:     ...	...	commit staged changes to repo.
+git log:	...	...	show entire repo history.
+ls:		...	...	list contents of current directory.
+ls -a:		...	...	list all contents of directory including hidden items.
+git log --stat --summary:	show cool details of commit history with insertions/deletions and plus/minus signs.
+git ls -files:	...	...	list all files in repo including staged but not yet committed.
