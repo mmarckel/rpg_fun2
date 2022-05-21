@@ -25,7 +25,7 @@ namespace SuperAdventure
             //location.Name = "Home";
             //location.Description = "This is your house.";
 
-            _player = new Player(10, 10, 20, 0, 1);;
+            _player = new Player(10, 10, 20, 0, 1);; //creates new object of class Player- calls the constructor of Player
 
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             lblGold.Text = _player.Gold.ToString();
