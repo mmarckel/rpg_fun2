@@ -1,0 +1,1 @@
+Lesson 14.3 no code just discussion on foreach loops and LINQ 14.3.txt
