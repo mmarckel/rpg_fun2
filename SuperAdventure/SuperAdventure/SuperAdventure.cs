@@ -401,6 +401,7 @@ namespace SuperAdventure
                     MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 }
             }
+
         }
 
         private void btnUsePotion_Click(object sender, EventArgs e)
