@@ -314,8 +314,8 @@ namespace SuperAdventure
             }   
             else
             {
-                // Monster is still alive
-                MonsterStillKicking();
+                // Monster is still alive and attacks
+                ItsADragonAttack();
             }
         }
 
@@ -372,7 +372,7 @@ namespace SuperAdventure
             MoveTo(_player.CurrentLocation);
         }
 
-        private void MonsterStillKicking() //from btnUseWeapon_Click()
+        private void ItsADragonAttack() //from btnUseWeapon_Click() and btnUsePotion_Click()
         {
             // Determine the amount of damage the monster does to the player
             int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentMonster.MaximumDamage);
@@ -402,46 +402,16 @@ namespace SuperAdventure
             HealingPotion potion = (HealingPotion)cboPotions.SelectedItem;
 
             // Add healing amount to the player's current hit points
-            _player.CurrentHitPoints = (_player.CurrentHitPoints + potion.AmountToHeal);
-
-            // CurrentHitPoints cannot exceed player's MaximumHitPoints
-            if (_player.CurrentHitPoints > _player.MaximumHitPoints)
-            {
-                _player.CurrentHitPoints = _player.MaximumHitPoints;
-            }
+            _player.AddHealingHitPoints(potion);
 
             // Remove the potion from the player's inventory
-            foreach (InventoryItem ii in _player.Inventory)
-            {
-                if (ii.Details.ID == potion.ID)
-                {
-                    ii.Quantity--;
-                    break;
-                }
-            }
+            _player.RemovePotionFromInventory(potion);
 
             // Display message
-            rtbMessages.Text += "You drink a " + potion.Name + Environment.NewLine;
+            rtbMessages.Text += "You drink a " + potion.Name + " for " + potion.AmountToHeal + " points." + Environment.NewLine;
 
             // Monster gets their turn to attack
-
-            // Determine the amount of damage the monster does to the player
-            int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentMonster.MaximumDamage);
-
-            // Display message
-            rtbMessages.Text += "The " + _currentMonster.Name + " did " + damageToPlayer.ToString() + " points of damage." + Environment.NewLine;
-
-            // Subtract damage from player
-            _player.CurrentHitPoints -= damageToPlayer;
-
-            if (_player.CurrentHitPoints <= 0)
-            {
-                // Display message
-                rtbMessages.Text += "The " + _currentMonster.Name + " killed you." + Environment.NewLine;
-
-                // Move player to "Home"
-                MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
-            }
+            ItsADragonAttack();
 
             // Refresh player data in UI
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
