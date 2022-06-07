@@ -152,5 +152,30 @@ namespace Engine
                 }
             }
         }
+
+        // Add healing amount to the player's current hit points
+        public void AddHealingHitPoints(HealingPotion potion)
+        {
+            CurrentHitPoints = (CurrentHitPoints + potion.AmountToHeal);
+
+            // CurrentHitPoints cannot exceed player's MaximumHitPoints
+            if (CurrentHitPoints > MaximumHitPoints)
+            {
+                CurrentHitPoints = MaximumHitPoints;
+            }
+        }
+
+        // Remove the potion from the player's inventory
+        public void RemovePotionFromInventory(HealingPotion potion)
+            {
+                foreach (InventoryItem ii in Inventory)
+                {
+                    if (ii.Details.ID == potion.ID)
+                    {
+                        ii.Quantity--;
+                        break;
+                    }
+                }
+            }
     }
 }
