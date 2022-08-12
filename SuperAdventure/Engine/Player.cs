@@ -34,30 +34,12 @@ namespace Engine
             }
 
             // See if the player has the required item in their inventory
-            foreach (InventoryItem ii in Inventory)
-            {
-                if (ii.Details.ID == location.ItemRequiredToEnter.ID)
-                {
-                    // We found the required item, so return "true"
-                    return true;
-                }
-            }
-
-            // We didn't find the required item in their inventory, so return "false"
-            return false;
+            return Inventory.Exists(ii => ii.Details.ID == location.ItemRequiredToEnter.ID);
         }
 
         public bool HasThisQuest(Quest quest)
         {
-            foreach (PlayerQuest playerQuest in Quests)
-            {
-                if (playerQuest.Details.ID == quest.ID)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return Quests.Exists(pq => pq.Details.ID == quest.ID);
         }
 
         public bool CompletedThisQuest(Quest quest)
@@ -81,21 +63,10 @@ namespace Engine
                 bool foundItemInPlayersInventory = false;
 
                 // Check each item in the player's inventory, to see if they have it, and enough of it
-                foreach (InventoryItem ii in Inventory)
-                {
-                    if (ii.Details.ID == qci.Details.ID) // The player has the item in their inventory
-                    {
-                        foundItemInPlayersInventory = true;
+                if (!Inventory.Exists(ii => ii.Details.ID == qci.Details.ID && ii.Quantity >= qci.Quantity))
 
-                        if (ii.Quantity < qci.Quantity) // The player does not have enough of this item to complete the quest
-                        {
-                            return false;
-                        }
-                    }
-                }
-
-                // The player does not have any of this quest completion item in their inventory
-                if (!foundItemInPlayersInventory)
+                    // The player does not have any of this quest completion item in their inventory
+                    if (!foundItemInPlayersInventory)
                 {
                     return false;
                 }
